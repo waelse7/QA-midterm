@@ -21,6 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 public class HttpFacade {
     public <T extends WithStatus> T httpRequest(T clz, String url, RequestMethods methods, String jsonBody) throws IOException {
 
+<<<<<<< HEAD
         try (CloseableHttpClient httpClient = HttpClients.createDefault()){
             CloseableHttpResponse response = null;
             switch (methods) {
@@ -74,5 +75,9 @@ public class HttpFacade {
     public <T extends WithStatus> T httpRequest( T clz, String url, RequestMethods methods) throws IOException {
         return httpRequest(clz, url, methods, null);
     }
+=======
+    //pop
+    //hello
+>>>>>>> eac117c9cef21fddad28a16da297ac4f10e3c338
 }
 
