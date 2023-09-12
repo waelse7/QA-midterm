@@ -31,7 +31,7 @@ public class AsideCart extends BaseClass {
 
 
 
-    List<WebElement> itemsInCart = new ArrayList<>();
+    List<WebElement> itemsInCart = new ArrayList<>(); // item in cart
     List<WebElement> removeBtn = new ArrayList<>();
     public void cartSize() {
         itemsInCart = cart.findElements(By.tagName("li"));
