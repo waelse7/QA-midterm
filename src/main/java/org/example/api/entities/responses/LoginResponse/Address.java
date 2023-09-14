@@ -1,4 +1,4 @@
-package org.example.api.entities.responses.LoginResponse.ResponseClasses;
+package org.example.api.entities.responses.LoginResponse;
 
 public class Address {
     private String city;

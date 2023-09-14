@@ -1,4 +1,4 @@
-package org.example.api.entities.responses.LoginResponse.AddToCartResponse;
+package org.example.api.entities.responses.AddToCartResponse;
 
 
 

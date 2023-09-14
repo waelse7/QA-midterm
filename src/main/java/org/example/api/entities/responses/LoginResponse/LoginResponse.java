@@ -1,12 +1,10 @@
 package org.example.api.entities.responses.LoginResponse;
 
-import org.example.api.entities.responses.LoginResponse.ResponseClasses.Cart;
-import org.example.api.entities.responses.LoginResponse.ResponseClasses.DeliveryTimesCustomer;
-import org.example.api.entities.responses.LoginResponse.ResponseClasses.User;
+import org.example.api.entities.responses.WithStatus;
 
 import java.util.List;
 
-public class UserResponse {
+public class LoginResponse extends WithStatus {
     private User user;
     private DeliveryTimesCustomer deliveryTimesCustomer;
     private List<Object> orderTokens;
@@ -14,7 +12,7 @@ public class UserResponse {
     private Cart cart;
     private List<Object> shopLists;
 
-    public UserResponse(User user, DeliveryTimesCustomer deliveryTimesCustomer, List<Object> orderTokens, Object order, Cart cart, List<Object> shopLists) {
+    public LoginResponse(User user, DeliveryTimesCustomer deliveryTimesCustomer, List<Object> orderTokens, Object order, Cart cart, List<Object> shopLists) {
         this.user = user;
         this.deliveryTimesCustomer = deliveryTimesCustomer;
         this.orderTokens = orderTokens;
@@ -23,7 +21,7 @@ public class UserResponse {
         this.shopLists = shopLists;
     }
 
-    public UserResponse() {
+    public LoginResponse() {
     }
 
     @Override
