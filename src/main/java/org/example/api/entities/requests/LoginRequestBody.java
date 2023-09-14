@@ -1,4 +1,4 @@
-package org.example.api.entities.responses.LoginResponse;
+package org.example.api.entities.requests;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

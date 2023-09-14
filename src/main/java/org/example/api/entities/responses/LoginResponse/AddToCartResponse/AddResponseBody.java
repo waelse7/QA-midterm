@@ -1,5 +1,6 @@
 package org.example.api.entities.responses.LoginResponse.AddToCartResponse;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -1,14 +1,24 @@
-package org.example.api.entities.responses.LoginResponse.AddToCartResponse;
+package org.example.api.entities.requests;
+
+import org.example.api.entities.responses.WithStatus;
 
 import java.util.Map;
 
-public class addRequestBody {
+public class AddRequestBody extends WithStatus {
     private int isClub;
     private Map<String, String> items;
     private String store;
     private String supplyAt;
 
-    public addRequestBody(int isClub, Map<String, String> items, String store, String supplyAt) {
+    public AddRequestBody(int statusCode, int isClub, Map<String, String> items, String store, String supplyAt) {
+        super(statusCode);
+        this.isClub = isClub;
+        this.items = items;
+        this.store = store;
+        this.supplyAt = supplyAt;
+    }
+
+    public AddRequestBody(int isClub, Map<String, String> items, String store, String supplyAt) {
         this.isClub = isClub;
         this.items = items;
         this.store = store;
@@ -16,10 +26,10 @@ public class addRequestBody {
 
     }
 
-    public addRequestBody() {
+    public AddRequestBody() {
     }
 
-    public addRequestBody(Map<String, String> items) {
+    public AddRequestBody(Map<String, String> items) {
         this.items = items;
         this.isClub = 0;
         this.store = "1197";
