@@ -6,4 +6,7 @@ public class WithStatus {
     public WithStatus(int statusCode) {
         this.statusCode = statusCode;
     }
+
+    public WithStatus() {
+    }
 }

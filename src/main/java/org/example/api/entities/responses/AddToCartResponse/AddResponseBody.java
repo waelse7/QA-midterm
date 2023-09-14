@@ -1,14 +1,16 @@
-package org.example.api.entities.responses.LoginResponse.AddToCartResponse;
+package org.example.api.entities.responses.AddToCartResponse;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.example.api.entities.responses.WithStatus;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class AddResponseBody {
+public class AddResponseBody extends WithStatus {
 
     @JsonProperty("sales")
     private List<Object> sales;
@@ -52,6 +54,10 @@ public class AddResponseBody {
         this.meta = meta;
         this.status = status;
         this.additionalProperties = additionalProperties;
+    }
+
+    public AddResponseBody(List<Object> sales) {
+        this.sales = sales;
     }
 
     public AddResponseBody() {

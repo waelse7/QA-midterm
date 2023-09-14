@@ -1,6 +1,5 @@
-package org.example.api.entities.responses.LoginResponse.AddToCartResponse;
+package org.example.api.entities.responses.AddToCartResponse;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 public class Meta {
