@@ -13,8 +13,8 @@ public class AsideCart extends BaseClass {
     private final String CART_ID = "//*[@id=\"market\"]/ul"; //XPath selector
     //private final String removeX = "//*[@id=\"item-1-0\"]/div/div/span[2]/a"; //cssSelector
     private final By REMOVE_BUTTON = By.xpath("//a[contains(@class,\"focus-item remove-item position-absolute top-0\")]");
-
-   // private final By REMOVE_BUTTON = By.xpath("//*[@id=\"item-1-0\"]/div/div/span[2]/a");
+    private WebElement cart;
+    private List<WebElement> itemsInCart;
     public AsideCart(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
         init();
@@ -24,22 +24,22 @@ public class AsideCart extends BaseClass {
         super(driver);
         init();
     }
-    WebElement cart;
 
     public void init() {
         this.cart = findWithWait(By.xpath(CART_ID));
+        itemsInCart = new ArrayList<>();
     }
 
-    List<WebElement> itemsInCart = new ArrayList<>();
+
    // List<WebElement> removeBtn = new ArrayList<>();
     public void cartSize() {
         itemsInCart = cart.findElements(By.tagName("li"));
-        System.out.println(itemsInCart.size());
     }
 
-    public void clickRemoveItem(){
+    public void clickRemoveItems(){
         for (WebElement ele: itemsInCart) {
-            WebElement remove = ele.findElement(REMOVE_BUTTON);
+            System.out.println(ele.getText());
+            WebElement remove = findWithWait((REMOVE_BUTTON));
             remove.click();
             try {
                 Thread.sleep(1000);
@@ -55,7 +55,7 @@ public class AsideCart extends BaseClass {
             WebElement remove = ele.findElement(REMOVE_BUTTON);
             remove.click();
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

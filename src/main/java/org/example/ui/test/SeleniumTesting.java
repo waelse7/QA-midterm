@@ -19,7 +19,6 @@ public class SeleniumTesting {
     private static WebDriver driver;
     public static void main(String[] args) throws InterruptedException {
         //login
-
         driver = DriverManager.initializeDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         HomePage page = new HomePage(driver, wait);
@@ -30,17 +29,20 @@ public class SeleniumTesting {
         header.search_For_Item(SEARCH_INPUT);
         header.activateDarkMode();
         Thread.sleep(SLEEP_TIME);
+        //add products
         ProductPage productPage = new ProductPage(driver, wait);
         Thread.sleep(SLEEP_TIME);
-        productPage.addItems();
-        Thread.sleep(SLEEP_TIME);
-//        productPage.addItems(5);
+   //     productPage.addItems();
   //      Thread.sleep(SLEEP_TIME);
+
+        productPage.addItems(5);
+        Thread.sleep(SLEEP_TIME);
+        //remove products
         AsideCart cart = new AsideCart(driver, wait);
         cart.cartSize();
 
-        cart.removeItems(5);
-
+      //  cart.removeItems();
+        cart.clickRemoveItems();
         driver.quit();
     }
 

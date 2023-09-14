@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Header extends BaseClass {
     private final String SEARCH_BAR = "destination";
     private final String DARK_MODE = "open-popup-acc";
+    private WebElement searchBar;
+    private WebElement darkMode;
 
     public Header(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
@@ -19,8 +21,6 @@ public class Header extends BaseClass {
         super(driver);
         init();
     }
-    private WebElement searchBar;
-    private WebElement darkMode;
 
     public void init() {
         this.searchBar = findWithWait(By.id(SEARCH_BAR));
