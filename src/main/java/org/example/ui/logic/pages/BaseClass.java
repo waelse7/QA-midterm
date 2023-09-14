@@ -1,4 +1,4 @@
-package org.example.ui.infra;
+package org.example.ui.logic.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
