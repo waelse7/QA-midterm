@@ -1,11 +1,13 @@
 package org.example.ui.logic.pages;
 
+import io.cucumber.java.bs.A;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,13 +30,19 @@ public class ProductPage extends BaseClass {
     }
 
     private void init(){
-        products = driver.findElements(PRODUCT_CARD);
+        products = new ArrayList<>();
         buttons = new ArrayList<>();
         findAddBtn();
     }
 
    // finds the Add buttons and adds them to the list of buttons
     public void findAddBtn() {
+        try {
+            Thread.sleep(Duration.ofSeconds(10));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        products = driver.findElements(PRODUCT_CARD);
         for (WebElement product: products) {
             WebElement button = product.findElement(ADD_BUTTON2);
             buttons.add(button);
@@ -58,6 +66,7 @@ public class ProductPage extends BaseClass {
 
     //add certain amount of items to the cart
     public void addItems(int number_of_Products_To_Add) {
+
         int clicks = 0;
 
         for (WebElement btn : buttons) {

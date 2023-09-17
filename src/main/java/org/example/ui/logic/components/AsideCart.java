@@ -14,6 +14,11 @@ public class AsideCart extends BaseClass {
     //private final String removeX = "//*[@id=\"item-1-0\"]/div/div/span[2]/a"; //cssSelector
     private final By REMOVE_BUTTON = By.xpath("//a[contains(@class,\"focus-item remove-item position-absolute top-0\")]");
     private WebElement cart;
+
+    public List<WebElement> getItemsInCart() {
+        return itemsInCart;
+    }
+
     private List<WebElement> itemsInCart;
     public AsideCart(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);

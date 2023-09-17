@@ -2,6 +2,7 @@ package org.example.ui.infra;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
+import org.example.ui.logic.context.TestContext;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -14,14 +15,13 @@ import java.time.format.DateTimeFormatter;
 
 public class DriverManager {
     private static WebDriver driver;
-    private static final String URL_LINK = "https://www.rami-levy.co.il/he";
+//    private static final String URL_LINK = "https://www.rami-levy.co.il/he";
 
-    public static WebDriver initializeDriver() {
+    public static WebDriver initializeDriver(TestContext testContext) {
         if (driver == null) {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
-            driver.get(URL_LINK);
-
+            testContext.setDriver(driver);
         }
         return driver;
     }
