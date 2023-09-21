@@ -1,6 +1,8 @@
 package org.example.api.infra;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPatch;
@@ -12,14 +14,14 @@ import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
-import org.example.api.entities.responses.WithStatus;
+
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
+
 
 
 public class HttpFacade {
-    public <T extends WithStatus> T httpRequest(T clz, String url, RequestMethods methods, String jsonBody) throws IOException {
+    public JsonNode httpRequest(String url, RequestMethods methods, String jsonBody) throws IOException {
 
         try (CloseableHttpClient httpClient = HttpClients.createDefault()){
             CloseableHttpResponse response = null;
@@ -61,19 +63,15 @@ public class HttpFacade {
             }
             HttpEntity entity = response.getEntity();
             String responseBody = EntityUtils.toString(entity);
-            int statusCode = response.getCode();
             ObjectMapper objectMapper = new ObjectMapper();
-            clz = objectMapper.readValue(responseBody, (Class<T>) clz.getClass());
-            clz.getClass().getMethod("setStatusCode", int.class).invoke(clz, statusCode);
+            return objectMapper.readTree(responseBody);
 
-        } catch (ParseException | InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-
-        return clz;
     }
-    public <T extends WithStatus> T httpRequest( T clz, String url, RequestMethods methods) throws IOException {
-        return httpRequest(clz, url, methods, null);
+    public JsonNode httpRequest(String url, RequestMethods methods) throws IOException {
+        return httpRequest(url, methods, null);
     }
 
 }
