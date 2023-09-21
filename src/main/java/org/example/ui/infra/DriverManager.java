@@ -3,6 +3,7 @@ package org.example.ui.infra;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.example.ui.logic.context.TestContext;
+import org.example.ui.logic.pages.BaseClass;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -10,12 +11,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DriverManager {
     private static WebDriver driver;
 //    private static final String URL_LINK = "https://www.rami-levy.co.il/he";
+    private BaseClass currentPage;
 
     public static WebDriver initializeDriver(TestContext testContext) {
         if (driver == null) {
@@ -25,7 +29,32 @@ public class DriverManager {
         }
         return driver;
     }
+    public <T extends BaseClass> T createPage(Class<T> pageType){
+        return createPage(pageType, null);
+    }
 
+    public <T extends BaseClass> T createPage(Class<T> pageType, String url){
+        try {
+            Constructor<T> constructor = pageType.getConstructor(WebDriver.class);
+            if(url!=null){
+                driver.get(url);
+            }
+            T page = constructor.newInstance(driver);
+            currentPage = page;
+            return page;
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException("relevant constructor not found", e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public <T extends BaseClass> T getCurrentPage(){
+        return (T)currentPage;
+    }
     public static void takeScreenshot(String scenName) {
         // Capture a screenshot
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);

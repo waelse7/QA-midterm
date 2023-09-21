@@ -30,13 +30,14 @@ public class ProductPage extends BaseClass {
     }
 
     private void init(){
-        products = new ArrayList<>();
-        buttons = new ArrayList<>();
-        findAddBtn();
+//        products = new ArrayList<>();
+//        buttons = new ArrayList<>();
+//        findAddBtn();
     }
 
    // finds the Add buttons and adds them to the list of buttons
     public void findAddBtn() {
+
         try {
             Thread.sleep(Duration.ofSeconds(10));
         } catch (InterruptedException e) {
@@ -66,7 +67,9 @@ public class ProductPage extends BaseClass {
 
     //add certain amount of items to the cart
     public void addItems(int number_of_Products_To_Add) {
-
+        products = new ArrayList<>();
+        buttons = new ArrayList<>();
+        findAddBtn();
         int clicks = 0;
 
         for (WebElement btn : buttons) {

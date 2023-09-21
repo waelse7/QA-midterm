@@ -36,6 +36,10 @@ public class HomePage extends BaseClass {
         Sign = findWithWait(By.xpath(SIGN_IN_BTN));
     }
 
+    public void clickLogin(){
+        Sign.click();
+    }
+
     // The log in function using selenium UI
     public void login(String email, String pass) {
         Sign.click();
@@ -63,4 +67,7 @@ public class HomePage extends BaseClass {
     }
 
 
+    public String getLoginUserText() {
+        return Sign.getText();
+    }
 }
