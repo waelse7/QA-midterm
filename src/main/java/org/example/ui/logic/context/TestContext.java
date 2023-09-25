@@ -6,18 +6,22 @@ import java.util.HashMap;
 
 
 public class TestContext {
-    private WebDriver driver;
+    // class element
     private HashMap<String, Object> map;
 
+    /**
+     * Constructor initialize the map element
+     */
     public TestContext() {
         this.map = new HashMap<>();
     }
 
-    TestContext(WebDriver driver) {
-        this.driver = driver;
-        this.map = new HashMap<>();
-    }
-
+    /**
+     * get function that returns class from the map
+     * @param key
+     * @return
+     * @param <T>
+     */
     public <T> T get(String key) {
         Object item = map.get(key);
         if (item != null) {
@@ -27,15 +31,13 @@ public class TestContext {
         }
     }
 
+    /**
+     * put function that adds class to the map
+     * @param key
+     * @param item
+     */
     public void put(String key, Object item) {
         map.put(key, item);
     }
 
-    public WebDriver getDriver() {
-        return driver;
-    }
-
-    public void setDriver(WebDriver driver) {
-        this.driver = driver;
-    }
 }
