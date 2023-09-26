@@ -14,14 +14,16 @@ import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.example.api.entities.responses.WithStatus;
 
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 
 public class HttpFacade {
-    public JsonNode httpRequest(String url, RequestMethods methods, String jsonBody, HashMap<String, String> params) throws IOException {
+    public <T extends WithStatus> T httpRequest(T clz, String url, RequestMethods methods, String jsonBody, HashMap<String, String> params) throws IOException {
         if (params != null){
             StringBuilder urlBuilder = new StringBuilder(url);
             urlBuilder.append("?");
@@ -70,21 +72,24 @@ public class HttpFacade {
             }
             HttpEntity entity = response.getEntity();
             String responseBody = EntityUtils.toString(entity);
+            int statusCode = response.getCode();
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readTree(responseBody);
+            clz = objectMapper.readValue(responseBody, (Class<T>) clz.getClass());
+            clz.getClass().getMethod("setStatusCode", int.class).invoke(clz, statusCode);
 
-        } catch (ParseException e) {
+        } catch (ParseException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+        return clz;
     }
-    public JsonNode httpRequest(String url, RequestMethods methods, HashMap<String, String> params) throws IOException {
-        return httpRequest(url, methods, null, params);
+    public <T extends WithStatus> T httpRequest(T clz, String url, RequestMethods methods, HashMap<String, String> params) throws IOException {
+        return httpRequest(clz, url, methods, null, params);
     }
-    public JsonNode httpRequest(String url, RequestMethods methods) throws IOException {
-        return httpRequest(url, methods, null, null);
+    public <T extends WithStatus> T httpRequest(T clz, String url, RequestMethods methods) throws IOException {
+        return httpRequest(clz, url, methods, null, null);
     }
-    public JsonNode httpRequest(String url, RequestMethods methods, String jsonBody) throws IOException {
-        return httpRequest(url, methods, jsonBody, null);
+    public <T extends WithStatus> T httpRequest(T clz, String url, RequestMethods methods, String jsonBody) throws IOException {
+        return httpRequest(clz, url, methods, jsonBody, null);
     }
 }
 

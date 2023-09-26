@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.example.Credentials;
 import org.example.ui.infra.DriverManager;
 import org.example.ui.logic.components.AsideCart;
 import org.example.ui.logic.components.Header;
