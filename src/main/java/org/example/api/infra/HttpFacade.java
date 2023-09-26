@@ -17,12 +17,19 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 
 
 import java.io.IOException;
-
+import java.util.HashMap;
 
 
 public class HttpFacade {
-    public JsonNode httpRequest(String url, RequestMethods methods, String jsonBody) throws IOException {
-
+    public JsonNode httpRequest(String url, RequestMethods methods, String jsonBody, HashMap<String, String> params) throws IOException {
+        if (params != null){
+            StringBuilder urlBuilder = new StringBuilder(url);
+            urlBuilder.append("?");
+            for (String key: params.keySet()) {
+                urlBuilder.append(key).append("=").append(params.get(key)).append("&");
+            }
+            url = urlBuilder.toString();
+        }
         try (CloseableHttpClient httpClient = HttpClients.createDefault()){
             CloseableHttpResponse response = null;
             switch (methods) {
@@ -70,8 +77,14 @@ public class HttpFacade {
             throw new RuntimeException(e);
         }
     }
+    public JsonNode httpRequest(String url, RequestMethods methods, HashMap<String, String> params) throws IOException {
+        return httpRequest(url, methods, null, params);
+    }
     public JsonNode httpRequest(String url, RequestMethods methods) throws IOException {
-        return httpRequest(url, methods, null);
+        return httpRequest(url, methods, null, null);
+    }
+    public JsonNode httpRequest(String url, RequestMethods methods, String jsonBody) throws IOException {
+        return httpRequest(url, methods, jsonBody, null);
     }
 }
 
