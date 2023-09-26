@@ -5,35 +5,44 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Header extends BaseClass {
-    private final String SEARCH_BAR = "destination";
-    private final String DARK_MODE = "open-popup-acc";
+    // locators
+    private final By SEARCH_BAR = By.id("destination");
+    private final By DARK_MODE = By.id("open-popup-acc");
     private WebElement searchBar;
     private WebElement darkMode;
 
-    public Header(WebDriver driver, WebDriverWait wait) {
-        super(driver, wait);
-        init();
-    }
+    /**
+     * Constructor initialize class
+     * @param driver
+     */
     public Header(WebDriver driver) {
         super(driver);
         init();
     }
 
+    /**
+     * initialize class elements
+     */
     public void init() {
-        this.searchBar = findWithWait(By.id(SEARCH_BAR));
-        this.darkMode = findWithWait(By.id(DARK_MODE));
+        this.searchBar = findWithWait(SEARCH_BAR);
+        this.darkMode = findWithWait(DARK_MODE);
     }
 
-    //Searches for a specific elements
+    /**
+     * this function to search for specific item in the search bar
+     * @param item_name
+     */
     public void search_For_Item(String item_name) {;
         searchBar.click();
         searchBar.sendKeys(item_name);
         searchBar.sendKeys(Keys.ENTER);
     }
 
+    /**
+     * function to activate the dark mode
+     */
     public void activateDarkMode() {
         darkMode.click();
     }

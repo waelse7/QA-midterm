@@ -13,7 +13,9 @@ public class Hooks {
     private static TestContext testContext;
     private static final int SLEEP_TIME = 3000;
 
-    public Hooks(){}
+    public Hooks() {
+    }
+
     public Hooks(TestContext testcontext) {
         testContext = testcontext;
     }
@@ -21,8 +23,7 @@ public class Hooks {
     @Before
     public void beforeScenario() throws InterruptedException {
         testContext = new TestContext();
-        WebDriver driver = DriverManager.initializeDriver(testContext);
-        testContext.setDriver(driver);
+        WebDriver driver = DriverManager.initializeDriver();
         Thread.sleep(SLEEP_TIME);
     }
 
@@ -32,7 +33,7 @@ public class Hooks {
             takeScreenshot(scenario.getName());
         }
         testContext = null;
-      //  DriverManager.quitDriver();
+        DriverManager.quitDriver();
 
     }
 }
