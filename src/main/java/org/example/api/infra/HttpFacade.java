@@ -73,6 +73,5 @@ public class HttpFacade {
     public JsonNode httpRequest(String url, RequestMethods methods) throws IOException {
         return httpRequest(url, methods, null);
     }
-
 }
 

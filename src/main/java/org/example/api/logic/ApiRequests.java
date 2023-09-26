@@ -23,12 +23,12 @@ public class ApiRequests {
         String json = mapper.writeValueAsString(addRequestBody);
         return facade.httpRequest(addToCartString, RequestMethods.POST, json);
     }
-    public static JsonNode addToCart(LoginRequestBody loginRequestBody) throws IOException {
+    public static JsonNode login(LoginRequestBody loginRequestBody) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(loginRequestBody);
         return facade.httpRequest(addToCartString, RequestMethods.POST, json);
     }
-    public static JsonNode addToCart(SearchRequestBody searchRequestBody) throws IOException {
+    public static JsonNode search(SearchRequestBody searchRequestBody) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(searchRequestBody);
         return facade.httpRequest(addToCartString, RequestMethods.POST, json);
