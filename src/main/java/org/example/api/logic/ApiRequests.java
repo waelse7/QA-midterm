@@ -12,6 +12,7 @@ import org.example.api.infra.HttpFacade;
 import org.example.api.infra.RequestMethods;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class ApiRequests {
     private static final String logInString = "https://api-prod.rami-levy.co.il/api/v2/site/auth/login";
@@ -25,7 +26,13 @@ public class ApiRequests {
         String json = mapper.writeValueAsString(addRequestBody);
         return facade.httpRequest(new AddResponseBody(), addToCartString, RequestMethods.POST, json);
     }
-    public static LoginResponseBody loginReq(LoginRequestBody loginRequestBody) throws IOException {
+    public static AddResponseBody addToCart(AddRequestBody addRequestBody, HashMap<String, String> params) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(addRequestBody);
+        return facade.httpRequest(new AddResponseBody(), addToCartString, RequestMethods.POST, json, params);
+    }
+
+        public static LoginResponseBody loginReq(LoginRequestBody loginRequestBody) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(loginRequestBody);
         return facade.httpRequest(new LoginResponseBody(), logInString, RequestMethods.POST, json);
@@ -34,5 +41,10 @@ public class ApiRequests {
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(searchRequestBody);
         return facade.httpRequest(new SearchResponseBody(), searchString, RequestMethods.POST, json);
+    }
+    public static SearchResponseBody search(SearchRequestBody searchRequestBody, HashMap<String, String> params) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(searchRequestBody);
+        return facade.httpRequest(new SearchResponseBody(), searchString, RequestMethods.POST, json, params);
     }
 }
