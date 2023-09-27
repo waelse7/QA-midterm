@@ -56,4 +56,6 @@ public class Sale {
     public int pendingApproval;
     @JsonProperty("is_club")
     public int isClub;
+    @JsonProperty("max_in_doc")
+    public int maxInDoc;
 }

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.List;
+import java.util.Map;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,7 +14,7 @@ import java.util.List;
 @ToString
 public class Item {
     @JsonProperty("countUsesSale")
-    public List<Integer> countUsesSale;
+    public Map<String, Integer> countUsesSale;
     @JsonProperty("FormatedSavePrice")
     public int formatedSavePrice;
     @JsonProperty("FormatedTotalPrice")
@@ -50,7 +52,7 @@ public class Item {
     @JsonProperty("isClub")
     public boolean isClub;
     @JsonProperty("countUsesSaleWallet")
-    public List<Integer> countUsesSaleWallet;
+    public Map<String, Integer> countUsesSaleWallet;
     @JsonProperty("PromotionId")
     public List<Integer> promotionId;
     @JsonProperty("department_id")

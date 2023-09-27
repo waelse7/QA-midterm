@@ -14,5 +14,6 @@ public class AddRequestBody {
     private Map<String, String> items;
     private String store;
     private String supplyAt;
+    private Object meta;
 
 }

@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class ApiRequests {
     private static final String logInString = "https://api-prod.rami-levy.co.il/api/v2/site/auth/login";
-    private final String searchString = "https://www.rami-levy.co.il/api/catalog";
+    private static final String searchString = "https://www.rami-levy.co.il/api/catalog";
     private static final String addToCartString = "https://www.rami-levy.co.il/api/v2/cart";
 
     private static HttpFacade facade = new HttpFacade();
@@ -33,6 +33,6 @@ public class ApiRequests {
     public static SearchResponseBody search(SearchRequestBody searchRequestBody) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(searchRequestBody);
-        return facade.httpRequest(new SearchResponseBody(), addToCartString, RequestMethods.POST, json);
+        return facade.httpRequest(new SearchResponseBody(), searchString, RequestMethods.POST, json);
     }
 }
