@@ -29,3 +29,6 @@ Feature: test1
     When I add items to cart 5
     When I remove items from side cart
     And The cart is empty
+
+  Scenario: Test the login functionality
+    Given

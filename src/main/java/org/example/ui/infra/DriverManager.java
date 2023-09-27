@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.example.ui.logic.context.TestContext;
 import org.example.ui.logic.pages.BaseClass;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -32,7 +33,9 @@ public class DriverManager {
         }
         return driver;
     }
-
+    public static JavascriptExecutor createJsExecutor(){
+        return (JavascriptExecutor) driver;
+    }
     /**
      * a function used to create the pages that don't need url
      * @param pageType
@@ -61,11 +64,7 @@ public class DriverManager {
             return page;
         } catch (NoSuchMethodException e) {
             throw new RuntimeException("relevant constructor not found", e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }

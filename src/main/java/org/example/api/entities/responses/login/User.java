@@ -23,6 +23,8 @@ public class User {
     public String token;
     @JsonProperty("user_id")
     public String userId;
+    @JsonProperty("token_email_verification")
+    public Object tokenEmailVerification;
     @JsonProperty("meta")
     public Object meta;
     @JsonProperty("store_id")
@@ -45,6 +47,10 @@ public class User {
     public Object sexId;
     @JsonProperty("edit_order")
     public Object editOrder;
+    @JsonProperty("attempt_login")
+    public int attemptLogin;
+    @JsonProperty("last_login_attempt_at")
+    public Object lastLoginAttemptAt;
     @JsonProperty("send_email")
     public int sendEmail;
     @JsonProperty("send_sms")
