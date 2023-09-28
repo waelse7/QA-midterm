@@ -23,12 +23,12 @@ public class BaseClass {
 
     /**
      * function to find elements in the browser
-     * @param by
+     * @param locator
      * @return
      */
-    protected WebElement findWithWait(By by){
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait.until(ExpectedConditions.elementToBeClickable(by));
+    protected WebElement findWithWait(By locator){
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
 }

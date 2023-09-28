@@ -1,9 +1,9 @@
 package ui;
 
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.example.Credentials;
 import org.example.ui.infra.DriverManager;
 import org.example.ui.logic.components.AsideCart;
 import org.example.ui.logic.components.Header;
@@ -13,12 +13,12 @@ import org.example.ui.logic.pages.HomePage;
 import org.example.ui.logic.pages.ProductPage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RamiLeviSteps {
     private static final String URL_LINK = "https://www.rami-levy.co.il/he";
 
     private TestContext context;
-
     public RamiLeviSteps(){}
     public RamiLeviSteps(TestContext context) {
         this.context = context;
@@ -36,15 +36,15 @@ public class RamiLeviSteps {
         page.clickLogin();
         driverManager.createPage(LoginPage.class);
     }
-    @When("On login popup - I login with user '{}' and password '{}'")
-    public void iLoginWithUserTzahiTzahiComAndPasswordAa(String user, String password) {
+    @When("On login popup - I login")
+    public void iLoginWithUserNameAndPassword() {
         DriverManager driverManager = context.get("DriverManager");
         LoginPage page = driverManager.getCurrentPage();
-        page.login(user, password);
+        page.login(Credentials.username, Credentials.password);
         driverManager.createPage(HomePage.class);
     }
     @Then("On Rami Levi home page - '{}'")
-    public void onRamiLeviHomePageTzahi(String name) {
+    public void onRamiLeviHomePageFoad(String name) {
         DriverManager driverManager = context.get("DriverManager");
         HomePage homePage = driverManager.getCurrentPage();
         String currentText = homePage.getLoginUserText();
@@ -79,7 +79,7 @@ public class RamiLeviSteps {
         productPage.addItems(count);
     }
 
-    @And("I have {int} items in the cart")
+    @Then("I have {int} items in the cart")
     public void iHaveItemsInTheCart(int count) {
         DriverManager driverManager = context.get("DriverManager");
         driverManager.createPage(AsideCart.class);
@@ -96,12 +96,16 @@ public class RamiLeviSteps {
         asideCart.clickRemoveItems();
     }
 
-    @And("The cart is empty")
+    @Then("The cart is empty")
     public void theCartIsEmpty() {
         DriverManager driverManager = context.get("DriverManager");
-        driverManager.createPage(AsideCart.class);
-        AsideCart asideCart = driverManager.getCurrentPage();
-        assertEquals(0,asideCart.getItemsInCart().size() -1);
+        driverManager.createPage(HomePage.class);
+        HomePage homePage = driverManager.getCurrentPage();
+        boolean flag = false;
+        if (homePage.checkCartIsEmpty() !=null){
+            flag = true;
+        }
+        assertTrue(flag);
 
     }
 }
