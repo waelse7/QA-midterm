@@ -1,36 +1,50 @@
 package org.example.api.logic;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.api.entities.requests.AddRequestBody;
 import org.example.api.entities.requests.LoginRequestBody;
 import org.example.api.entities.requests.SearchRequestBody;
 
+import org.example.api.entities.responses.add.AddResponseBody;
+import org.example.api.entities.responses.login.LoginResponseBody;
+import org.example.api.entities.responses.search.SearchResponseBody;
 import org.example.api.infra.HttpFacade;
 import org.example.api.infra.RequestMethods;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class ApiRequests {
-    private final String logInString = "https://api-prod.rami-levy.co.il/api/v2/site/auth/login";
-    private final String searchString = "https://www.rami-levy.co.il/api/catalog?";
+    private static final String logInString = "https://api-prod.rami-levy.co.il/api/v2/site/auth/login";
+    private static final String searchString = "https://www.rami-levy.co.il/api/catalog";
     private static final String addToCartString = "https://www.rami-levy.co.il/api/v2/cart";
 
     private static HttpFacade facade = new HttpFacade();
 
-    public static JsonNode addToCart(AddRequestBody addRequestBody) throws IOException {
+    public static AddResponseBody addToCart(AddRequestBody addRequestBody) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(addRequestBody);
-        return facade.httpRequest(addToCartString, RequestMethods.POST, json);
+        return facade.httpRequest(new AddResponseBody(), addToCartString, RequestMethods.POST, json);
     }
-    public static JsonNode login(LoginRequestBody loginRequestBody) throws IOException {
+    public static AddResponseBody addToCart(AddRequestBody addRequestBody, HashMap<String, String> params) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(addRequestBody);
+        return facade.httpRequest(new AddResponseBody(), addToCartString, RequestMethods.POST, json, params);
+    }
+
+        public static LoginResponseBody loginReq(LoginRequestBody loginRequestBody) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(loginRequestBody);
-        return facade.httpRequest(addToCartString, RequestMethods.POST, json);
+        return facade.httpRequest(new LoginResponseBody(), logInString, RequestMethods.POST, json);
     }
-    public static JsonNode search(SearchRequestBody searchRequestBody) throws IOException {
+    public static SearchResponseBody search(SearchRequestBody searchRequestBody) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(searchRequestBody);
-        return facade.httpRequest(addToCartString, RequestMethods.POST, json);
+        return facade.httpRequest(new SearchResponseBody(), searchString, RequestMethods.POST, json);
+    }
+    public static SearchResponseBody search(SearchRequestBody searchRequestBody, HashMap<String, String> params) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(searchRequestBody);
+        return facade.httpRequest(new SearchResponseBody(), searchString, RequestMethods.POST, json, params);
     }
 }

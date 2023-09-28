@@ -3,6 +3,7 @@ package org.example.ui.infra;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.example.ui.logic.pages.BaseClass;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -31,7 +32,9 @@ public class DriverManager {
         }
         return driver;
     }
-
+    public static JavascriptExecutor createJsExecutor(){
+        return (JavascriptExecutor) driver;
+    }
     /**
      * a function used to create the pages that don't need url
      * @param pageType
