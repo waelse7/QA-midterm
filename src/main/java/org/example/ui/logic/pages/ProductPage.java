@@ -14,8 +14,9 @@ public class ProductPage extends BaseClass {
     private final By ADD_BUTTON = By.cssSelector(".focus-item.btn-acc.plus.no-select");
     private final By PRODUCT_CARD = By.cssSelector(".min-height-product");
     private final By POPUP_CLOSE_BUTTON = By.id("close-popup");
+    private final By SEARCH_RESULT = By.xpath("//*[@id=\"result-search\"]/div/span[2]");
+    private WebElement searchResult;
     private List<WebElement> products;
-    private List<WebElement> buttons;
 
     /**
      * constructor to init class
@@ -26,14 +27,10 @@ public class ProductPage extends BaseClass {
     }
 
     public void addItems(int count) {
+        searchResult = findWithWait(SEARCH_RESULT);// wait till items appears
         products = new ArrayList<>();
-        buttons = new ArrayList<>();
         int clicks = 0;
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+
         //Creating object of an Actions class
         Actions action = new Actions(driver);
         products = driver.findElements(PRODUCT_CARD);
@@ -54,7 +51,10 @@ public class ProductPage extends BaseClass {
                     WebElement popup = driver.findElement(POPUP_CLOSE_BUTTON);
                     popup.click();
                 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0641e57d0f570ebbf9103cdad0f54f82b5e9b887
             } else {
                 break;
             }

@@ -22,7 +22,6 @@ public class Hooks {
     public void beforeScenario() throws InterruptedException {
         testContext = new TestContext();
         WebDriver driver = DriverManager.initializeDriver();
-        Thread.sleep(SLEEP_TIME);
     }
 
     @After

@@ -2,7 +2,6 @@ package org.example.ui.infra;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
-import org.example.ui.logic.context.TestContext;
 import org.example.ui.logic.pages.BaseClass;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -80,15 +79,15 @@ public class DriverManager {
 
     /**
      * function to take screenshot of the webpage when test fail before closing the browser
-     * @param scenName
+     * @param sceneName
      */
-    public static void takeScreenshot(String scenName) {
+    public static void takeScreenshot(String sceneName) {
         // Capture a screenshot
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss");
         try {
             // Specify the file path where you want to save the screenshot
-            FileUtils.copyFile(screenshot, new File(String.format("screenshot_%s_%s.png", scenName, LocalDateTime.now().format(format))));
+            FileUtils.copyFile(screenshot, new File(String.format("screenshot_%s_%s.png", sceneName, LocalDateTime.now().format(format))));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
