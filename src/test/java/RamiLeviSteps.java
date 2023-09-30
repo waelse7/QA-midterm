@@ -1,5 +1,3 @@
-package ui;
-
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -86,7 +84,6 @@ public class RamiLeviSteps {
         driverManager.createPage(AsideCart.class);
         AsideCart asideCart = driverManager.getCurrentPage();
         assertEquals(count,asideCart.getItemsInCart().size() -1);
-
     }
 
     @When("I remove items from side cart")

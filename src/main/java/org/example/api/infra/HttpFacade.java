@@ -23,7 +23,12 @@ import java.util.HashMap;
 
 
 public class HttpFacade {
-    public <T extends WithStatus> T httpRequest(T clz, String url, RequestMethods methods, String jsonBody, HashMap<String, String> params) throws IOException {
+    public <T extends WithStatus> T httpRequest(T clz,
+                                                String url,
+                                                RequestMethods methods,
+                                                String jsonBody,
+                                                HashMap<String, String> params,
+                                                HashMap<String, String> headers) throws IOException {
         if (params != null){
             StringBuilder urlBuilder = new StringBuilder(url);
             urlBuilder.append("?");
@@ -42,6 +47,11 @@ public class HttpFacade {
                         httpMethod.setEntity(json);
                         httpMethod.setHeader("Accept", "application/json");
                         httpMethod.setHeader("Content-type", "application/json");
+                        if (headers != null) {
+                            for (HashMap.Entry<String, String> entry : headers.entrySet()) {
+                                httpMethod.setHeader(entry.getKey(), entry.getValue());
+                            }
+                        }
                         response = httpClient.execute(httpMethod);
                     }else {
                         HttpPost httpMethod = new HttpPost(url);
@@ -63,6 +73,11 @@ public class HttpFacade {
                         httpMethod.setEntity(json);
                         httpMethod.setHeader("Accept", "application/json");
                         httpMethod.setHeader("Content-type", "application/json");
+                        if (headers != null) {
+                            for (HashMap.Entry<String, String> entry : headers.entrySet()) {
+                                httpMethod.setHeader(entry.getKey(), entry.getValue());
+                            }
+                        }
                         response = httpClient.execute(httpMethod);
                     }else {
                         HttpPatch httpMethod = new HttpPatch(url);
@@ -82,14 +97,18 @@ public class HttpFacade {
         }
         return clz;
     }
-    public <T extends WithStatus> T httpRequest(T clz, String url, RequestMethods methods, HashMap<String, String> params) throws IOException {
-        return httpRequest(clz, url, methods, null, params);
+
+    public <T extends WithStatus> T httpRequest(T clz, String url, RequestMethods methods, HashMap<String, String> params, HashMap<String, String> headers) throws IOException {
+        return httpRequest(clz, url, methods, null, params, headers);
     }
-    public <T extends WithStatus> T httpRequest(T clz, String url, RequestMethods methods) throws IOException {
-        return httpRequest(clz, url, methods, null, null);
+    public <T extends WithStatus> T httpRequest(T clz, String url, RequestMethods methods, HashMap<String, String> headers) throws IOException {
+        return httpRequest(clz, url, methods, null, null, headers);
     }
     public <T extends WithStatus> T httpRequest(T clz, String url, RequestMethods methods, String jsonBody) throws IOException {
         return httpRequest(clz, url, methods, jsonBody, null);
+    }
+    public <T extends WithStatus> T httpRequest(T clz, String url, RequestMethods methods, String jsonBody, HashMap<String, String> headers) throws IOException {
+        return httpRequest(clz, url, methods, jsonBody, null, headers);
     }
 }
 

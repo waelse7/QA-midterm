@@ -61,6 +61,14 @@ public class AsideCart extends BaseClass {
             remove.click();
         }
     }
+    public boolean checkItemsInCart(String name){
+        for (int i = 0; i < itemsInCart.size() -1; i++){
+            if (!itemsInCart.get(i).getText().contains(name)){
+                return false;
+            }
+        }
+        return true;
+    }
 
 
 }

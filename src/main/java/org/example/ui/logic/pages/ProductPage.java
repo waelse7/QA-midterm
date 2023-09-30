@@ -55,12 +55,20 @@ public class ProductPage extends BaseClass {
                     popup.click();
                 }
 
-
             } else {
                 break;
             }
         }
+    }
 
+    public boolean checkItems(String name) {
+        products = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            if (!products.get(i).getText().contains(name)){
+                return false;
+            }
+        }
+        return true;
     }
 
 
