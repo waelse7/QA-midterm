@@ -51,10 +51,7 @@ public class ProductPage extends BaseClass {
                     WebElement popup = driver.findElement(POPUP_CLOSE_BUTTON);
                     popup.click();
                 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 0641e57d0f570ebbf9103cdad0f54f82b5e9b887
             } else {
                 break;
             }

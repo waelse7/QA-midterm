@@ -1,9 +1,3 @@
-<<<<<<< HEAD:src/test/java/RamiLeviSteps.java
-import io.cucumber.java.en.And;
-=======
-package ui;
-
->>>>>>> 0641e57d0f570ebbf9103cdad0f54f82b5e9b887:src/test/java/ui/RamiLeviSteps.java
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
