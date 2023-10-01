@@ -68,10 +68,4 @@ public class ProductPage extends BaseClass {
         return true;
     }
 
-
-    // TODO - add func with filter for "text()"
-    public void addItemByName(String name){
-
-    }
-
 }

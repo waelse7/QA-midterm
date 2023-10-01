@@ -31,31 +31,36 @@ Feature: test1
 #=================================================Tests    UI + API
   Scenario: Test the login functionality (valid)
     Given I am on rami levi homepage.
-    When I log in using the right credentials.
+    When On Rami Levi home page - I click login
+    And On login popup - I login
     Then I see the user name element on the page.
 
   Scenario:  Test the login functionality (invalid)
     Given I am on rami levi homepage.
-    When I log in using the wrong credentials.
+    When On Rami Levi home page - I click login
+    And On login popup - I login with wrong credentials
     Then I don't see the user name element on the page.
 
   Scenario: Test the search functionality
     Given I am on rami levi homepage.
-    And I log in using the right credentials.
-    When I search for "cola".
+    When On Rami Levi home page - I click login
+    And On login popup - I login
+    And I search for "cola".
     Then I see the "קולה" on the search page.
 
   Scenario: Test adding an item to the cart
     Given I am on rami levi homepage.
-    And I log in using the right credentials.
-    When I search for "cola".
+    When On Rami Levi home page - I click login
+    And On login popup - I login
+    And I search for "cola".
     And add items to the cart.
     Then I see "קולה" in the cart
 
   Scenario: Test removing an item from the cart
     Given I am on rami levi homepage.
-    And I log in using the right credentials.
-    When I search for "cola".
+    When On Rami Levi home page - I click login
+    And On login popup - I login
+    And I search for "cola".
     And add items to the cart.
     And I remove items from side cart
     Then The cart is empty

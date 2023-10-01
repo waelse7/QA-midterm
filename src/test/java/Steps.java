@@ -13,6 +13,7 @@ import org.example.api.entities.responses.search.SearchResponseBody;
 import org.example.api.logic.ApiRequests;
 import org.example.ui.infra.DriverManager;
 import org.example.ui.logic.components.AsideCart;
+import org.example.ui.logic.components.LoginPage;
 import org.example.ui.logic.context.TestContext;
 import org.example.ui.logic.pages.HomePage;
 import org.example.ui.logic.pages.ProductPage;
@@ -42,15 +43,19 @@ public class Steps {
         context.put("DriverManager", driver);
         HomePage homePage = driver.createPage(HomePage.class, URL_LINK);
     }
-    @When("I log in using the right credentials.")
-    public void validLogin() throws IOException {
-        LoginRequestBody cred = new LoginRequestBody(null, email, password, false);
-        LoginResponseBody responseBody = ApiRequests.loginReq(cred);
-        assumeTrue(200 == responseBody.getStatusCode());
-        JavascriptExecutor jsExecutor = DriverManager.createJsExecutor();
-        String s ="{\"authuser\":{\"user\":" + responseBody.getUser() +"}}";
-        jsExecutor.executeScript(String.format("window.localStorage.setItem('ramilevy','%s')",s));
-        DriverManager.getDriver().navigate().refresh();
+    @When("On Rami Levi home page - I click login")
+    public void onRamiLeviHomePageIClickLogin() {
+        DriverManager driverManager = context.get("DriverManager");
+        HomePage page = driverManager.getCurrentPage();
+        page.clickLogin();
+        driverManager.createPage(LoginPage.class);
+    }
+    @When("On login popup - I login")
+    public void iLoginWithUserNameAndPassword() {
+        DriverManager driverManager = context.get("DriverManager");
+        LoginPage page = driverManager.getCurrentPage();
+        page.login(Credentials.username, Credentials.password);
+        driverManager.createPage(HomePage.class);
     }
     @Then("I see the user name element on the page.")
     public void assertValidLogin(){
@@ -71,14 +76,12 @@ public class Steps {
         assertEquals("fouad", currentText);
     }
 
-    @When("I log in using the wrong credentials.")
-    public void invalidLogin() throws IOException {
-        LoginRequestBody cred = new LoginRequestBody(null, email, "wrong password", false);
-        LoginResponseBody responseBody = ApiRequests.loginReq(cred);
-        JavascriptExecutor jsExecutor = DriverManager.createJsExecutor();
-        String s ="{\"authuser\":{\"user\":" + responseBody.getUser() +"}}";
-        jsExecutor.executeScript(String.format("window.localStorage.setItem('ramilevy','%s')",s));
-        DriverManager.getDriver().navigate().refresh();
+    @When("On login popup - I login with wrong credentials")
+    public void iLoginWithWrongUserNameAndPassword() {
+        DriverManager driverManager = context.get("DriverManager");
+        LoginPage page = driverManager.getCurrentPage();
+        page.login(Credentials.username, Credentials.password);
+        driverManager.createPage(HomePage.class);
     }
 
     @Then("I don't see the user name element on the page.")
