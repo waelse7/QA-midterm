@@ -3,10 +3,7 @@ package org.example.api.infra;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.apache.hc.client5.http.classic.methods.HttpDelete;
-import org.apache.hc.client5.http.classic.methods.HttpGet;
-import org.apache.hc.client5.http.classic.methods.HttpPatch;
-import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.*;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
@@ -37,12 +34,13 @@ public class HttpFacade {
             }
             url = urlBuilder.toString();
         }
+        HttpUriRequest httpMethod = null;
         try (CloseableHttpClient httpClient = HttpClients.createDefault()){
             CloseableHttpResponse response = null;
             switch (methods) {
                 case POST -> {
                     if (jsonBody != null){
-                        HttpPost httpMethod = new HttpPost(url);
+                        httpMethod = new HttpPost(url);
                         StringEntity json = new StringEntity(jsonBody);
                         httpMethod.setEntity(json);
                         httpMethod.setHeader("Accept", "application/json");
@@ -52,23 +50,19 @@ public class HttpFacade {
                                 httpMethod.setHeader(entry.getKey(), entry.getValue());
                             }
                         }
-                        response = httpClient.execute(httpMethod);
                     }else {
-                        HttpPost httpMethod = new HttpPost(url);
-                        response = httpClient.execute(httpMethod);
+                        httpMethod = new HttpPost(url);
                     }
                 }
                 case GET -> {
-                    HttpGet httpMethod = new HttpGet(url);
-                    response = httpClient.execute(httpMethod);
+                    httpMethod = new HttpGet(url);
                 }
                 case DELETE -> {
-                    HttpDelete httpMethod = new HttpDelete(url);
-                    response = httpClient.execute(httpMethod);
+                    httpMethod = new HttpDelete(url);
                 }
                 case PATCH -> {
                     if (jsonBody != null){
-                        HttpPatch httpMethod = new HttpPatch(url);
+                        httpMethod = new HttpPatch(url);
                         StringEntity json = new StringEntity(jsonBody);
                         httpMethod.setEntity(json);
                         httpMethod.setHeader("Accept", "application/json");
@@ -78,13 +72,12 @@ public class HttpFacade {
                                 httpMethod.setHeader(entry.getKey(), entry.getValue());
                             }
                         }
-                        response = httpClient.execute(httpMethod);
                     }else {
-                        HttpPatch httpMethod = new HttpPatch(url);
-                        response = httpClient.execute(httpMethod);
+                        httpMethod = new HttpPatch(url);
                     }
                 }
             }
+            response = httpClient.execute(httpMethod);
             HttpEntity entity = response.getEntity();
             String responseBody = EntityUtils.toString(entity);
             int statusCode = response.getCode();
