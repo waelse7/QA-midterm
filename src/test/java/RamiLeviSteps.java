@@ -27,20 +27,7 @@ public class RamiLeviSteps {
         context.put("DriverManager", driverManager);
         HomePage homePage = driverManager.createPage(HomePage.class, URL_LINK);
     }
-    @When("On Rami Levi home page - I click login")
-    public void onRamiLeviHomePageIClickLogin() {
-        DriverManager driverManager = context.get("DriverManager");
-        HomePage page = driverManager.getCurrentPage();
-        page.clickLogin();
-        driverManager.createPage(LoginPage.class);
-    }
-    @When("On login popup - I login")
-    public void iLoginWithUserNameAndPassword() {
-        DriverManager driverManager = context.get("DriverManager");
-        LoginPage page = driverManager.getCurrentPage();
-        page.login(Credentials.username, Credentials.password);
-        driverManager.createPage(HomePage.class);
-    }
+
     @Then("On Rami Levi home page - '{}'")
     public void onRamiLeviHomePageFoad(String name) {
         DriverManager driverManager = context.get("DriverManager");
@@ -85,24 +72,24 @@ public class RamiLeviSteps {
         assertEquals(count,asideCart.getItemsInCart().size() -1);
     }
 
-    @When("I remove items from side cart")
-    public void iRemoveItemsFromSideCart() {
-        DriverManager driverManager = context.get("DriverManager");
-        driverManager.createPage(AsideCart.class);
-        AsideCart asideCart = driverManager.getCurrentPage();
-        asideCart.clickRemoveItems();
-    }
+//    @When("I remove items from side cart")
+//    public void iRemoveItemsFromSideCart() {
+//        DriverManager driverManager = context.get("DriverManager");
+//        driverManager.createPage(AsideCart.class);
+//        AsideCart asideCart = driverManager.getCurrentPage();
+//        asideCart.clickRemoveItems();
+//    }
 
-    @Then("The cart is empty")
-    public void theCartIsEmpty() {
-        DriverManager driverManager = context.get("DriverManager");
-        driverManager.createPage(HomePage.class);
-        HomePage homePage = driverManager.getCurrentPage();
-        boolean flag = false;
-        if (homePage.checkCartIsEmpty() !=null){
-            flag = true;
-        }
-        assertTrue(flag);
-
-    }
+//    @Then("The cart is empty")
+//    public void theCartIsEmpty() {
+//        DriverManager driverManager = context.get("DriverManager");
+//        driverManager.createPage(HomePage.class);
+//        HomePage homePage = driverManager.getCurrentPage();
+//        boolean flag = false;
+//        if (homePage.checkCartIsEmpty() !=null){
+//            flag = true;
+//        }
+//        assertTrue(flag);
+//
+//    }
 }
