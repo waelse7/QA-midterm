@@ -92,7 +92,7 @@ public class Steps {
         assertEquals("???????", currentText);
     }
 
-    @When("I search for {string}.")
+    @When("I search for {string} (via api).")
     public void searchForItem(String item) throws IOException {
         DriverManager driverManager = context.get("DriverManager");
         SearchRequestBody search = new SearchRequestBody(1, item, "1197");
@@ -102,7 +102,7 @@ public class Steps {
 
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode node = objectMapper.readTree(tokenAndUserData);
-        String tokenText = node.get("authuser").get("user").get("token").asText();
+        String tokenText = node.get("authuser").get("user").get("token").textValue();
 
         HashMap<String, String> token = new HashMap<>();
         token.put("Ecomtoken", tokenText);
@@ -121,7 +121,7 @@ public class Steps {
 
 
 
-    @When("add items to the cart.")
+    @When("add items to the cart (via api).")
     public void addTest() throws IOException {
         Map<String, String> map = new HashMap<>();
         map.put("386097", "1.00");
