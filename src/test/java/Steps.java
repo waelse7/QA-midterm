@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -92,7 +93,7 @@ public class Steps {
         assertEquals("התחברות", currentText);
     }
 
-    @When("I search for {string}.")
+    @When("I search for {string} \\(via api).")
     public void searchForItem(String item) throws IOException {
         DriverManager driverManager = context.get("DriverManager");
         SearchRequestBody search = new SearchRequestBody(1, item, "1197");
@@ -102,7 +103,6 @@ public class Steps {
 
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode node = objectMapper.readTree(tokenAndUserData);
-       // String tokenText = node.get("authuser").get("user").get("token").asText();
         String tokenText = node.get("authuser").get("user").get("token").textValue();
 
         HashMap<String, String> token = new HashMap<>();
@@ -122,7 +122,7 @@ public class Steps {
 
 
 
-    @When("add items to the cart.")
+    @When("add items to the cart \\(via api).")
     public void addTest() throws IOException {
         Map<String, String> map = new HashMap<>();
         map.put("386097", "1.00");
