@@ -80,7 +80,7 @@ public class Steps {
     public void iLoginWithWrongUserNameAndPassword() {
         DriverManager driverManager = context.get("DriverManager");
         LoginPage page = driverManager.getCurrentPage();
-        page.login(Credentials.username, Credentials.password);
+        page.login("pop", "12334");
         driverManager.createPage(HomePage.class);
     }
 
@@ -89,7 +89,7 @@ public class Steps {
         DriverManager driverManager = context.get("DriverManager");
         HomePage homePage = driverManager.getCurrentPage();
         String currentText = homePage.getLoginUserText();
-        assertEquals("???????", currentText);
+        assertEquals("התחברות", currentText);
     }
 
     @When("I search for {string}.")
@@ -102,7 +102,8 @@ public class Steps {
 
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode node = objectMapper.readTree(tokenAndUserData);
-        String tokenText = node.get("authuser").get("user").get("token").asText();
+       // String tokenText = node.get("authuser").get("user").get("token").asText();
+        String tokenText = node.get("authuser").get("user").get("token").textValue();
 
         HashMap<String, String> token = new HashMap<>();
         token.put("Ecomtoken", tokenText);
